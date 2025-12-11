@@ -1,17 +1,27 @@
-// Obtener datos desde la URL (item, img, precio, etc)
-const params = new URLSearchParams(window.location.search);
+// compra.js
+(function() {
 
-document.getElementById("buyName").textContent = params.get("name");
-document.getElementById("buyPrice").textContent = params.get("price");
-document.getElementById("buyImg").src = params.get("img");
-document.getElementById("buyDesc").textContent = params.get("desc");
+  const params = new URLSearchParams(window.location.search);
 
-// Abrir modal
-document.getElementById("confirmBtn").onclick = () => {
-    document.getElementById("formModal").style.display = "flex";
-};
+  const name = params.get('name') || 'Almendras';
+  const price = params.get('price') || '$0.25 / unidad';
+  const img = params.get('img') || 'img/almendras.png';
+  const desc = params.get('desc') || 'Semilla nutritiva y saludable.';
 
-// Cerrar modal
-document.getElementById("closeForm").onclick = () => {
-    document.getElementById("formModal").style.display = "none";
-};
+  // Asignar valores
+  document.getElementById('buyName').textContent = name;
+  document.getElementById('buyPrice').textContent = price;
+  document.getElementById('buyImg').src = img;
+  document.getElementById('buyDesc').textContent = desc;
+
+  // Abrir modal
+  document.getElementById('confirmBtn').onclick = () => {
+      document.getElementById('formModal').style.display = 'flex';
+  };
+
+  // Cerrar modal
+  document.getElementById('closeForm').onclick = () => {
+      document.getElementById('formModal').style.display = 'none';
+  };
+
+})();
