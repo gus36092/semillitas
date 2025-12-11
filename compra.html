@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra</title>
 
+    <!-- CORREGIDO -->
     <link rel="stylesheet" href="compra.css">
-    
 </head>
+
 <body>
 
     <div class="container">
@@ -46,7 +47,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-        import { getDatabase, ref, push, set }
+        import { getDatabase, ref, push }
             from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -64,8 +65,8 @@
         const analytics = getAnalytics(app);
         const db = getDatabase(app);
 
-        // Guardar pedido
         document.getElementById("sendOrder").onclick = async () => {
+
             const name = document.getElementById("userName").value;
             const area = document.getElementById("userArea").value;
             const qty = document.getElementById("qty").value;
@@ -84,8 +85,7 @@
                 fecha: new Date().toISOString()
             };
 
-            const pedidosRef = ref(db, "pedidos");
-            await push(pedidosRef, order);
+            await push(ref(db, "pedidos"), order);
 
             alert("Pedido enviado correctamente.");
             document.getElementById("formModal").style.display = "none";
@@ -94,6 +94,3 @@
 
 </body>
 </html>
-
-
-
