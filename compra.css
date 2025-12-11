@@ -7,98 +7,115 @@ body {
     justify-content: center;
 }
 
+/* --- TARJETA PRINCIPAL --- */
 .card {
     width: 90%;
-    max-width: 600px;
+    max-width: 650px;
     margin: 60px auto;
-    background: white;
+    background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 22px;
     text-align: center;
-    box-shadow: 0px 6px 25px rgba(0,0,0,0.15);
+
     border-top: 10px solid #0a3d2a;
     border-bottom: 10px solid #d4a017;
+
+    box-shadow: 0px 7px 25px rgba(0, 0, 0, 0.15);
 }
 
-.card img {
+/* Imagen del producto */
+.product-img {
     width: 200px;
     border-radius: 12px;
     margin-bottom: 20px;
 }
 
-.product-img {
-    width: 180px;
-}
-
+/* TÍTULOS */
 h1 {
     color: #0a3d2a;
+    margin: 10px 0;
 }
 
 h2 {
     color: #065a3f;
+    margin-bottom: 20px;
 }
 
+/* DESCRIPCIÓN */
 p {
-    margin-top: 10px;
-    color: #333;
+    max-width: 450px;
+    margin: 0 auto 25px auto;
+    color: #444;
+    font-size: 15px;
 }
 
+/* CANTIDAD */
 .qty-box {
-    margin-top: 20px;
+    margin-bottom: 25px;
 }
 
-input {
-    padding: 8px;
-    border-radius: 8px;
+.qty-box input {
+    padding: 6px 10px;
+    font-size: 16px;
     border: 2px solid #0a3d2a;
-    width: 80px;
+    border-radius: 8px;
     text-align: center;
+    width: 80px;
 }
 
+/* BOTÓN PRINCIPAL */
 .btn {
-    margin-top: 20px;
-    padding: 12px 25px;
     background: #0a0f88;
     color: white;
+    padding: 12px 25px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
 }
 
+/* LINK VOLVER */
 .back {
     display: block;
-    margin-top: 15px;
-    color: #0a0f88;
+    margin-top: 20px;
     text-decoration: none;
+    color: #0a0f88;
 }
 
-/* MODAL */
+/* --- MODAL --- */
 .modal {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
     justify-content: center;
     align-items: center;
+    z-index: 20;
 }
 
 .modal-content {
-    background: white;
-    padding: 20px;
+    background: #fff;
+    padding: 25px;
     border-radius: 15px;
-    width: 350px;
+    width: 330px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.modal-content input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 2px solid #0a3d2a;
     text-align: center;
 }
 
-.close {
-    float: right;
-    cursor: pointer;
-    font-size: 20px;
-}
-
 #sendOrder {
+    margin-top: 15px;
     padding: 12px 20px;
     background: #0a0f88;
     color: white;
@@ -107,3 +124,8 @@ input {
     cursor: pointer;
 }
 
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
