@@ -112,6 +112,30 @@
 </div>
 
 <style>
+  .login-modal .modal-content label {
+    display: block;
+    font-size: 16px;
+    margin-top: 12px;   /* Separación entre campos */
+}
+
+.login-modal .modal-content input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;    /* Pequeño espacio bajo el label */
+    border-radius: 8px;
+    border: 2px solid #0a3d2a;
+}
+
+.login-modal .modal-content button {
+    margin-top: 18px;   /* Separa el botón del campo contraseña */
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: #0a0f88;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -182,6 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
