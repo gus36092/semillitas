@@ -145,8 +145,44 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loginBtn = document.getElementById("loginBtn");
+    const loginModal = document.getElementById("loginModal");
+    const closeLogin = document.getElementById("closeLogin");
+
+    console.log("LoginBtn:", loginBtn);  // Debug para ver si existe
+
+    loginBtn.onclick = () => {
+        loginModal.style.display = "flex";
+    };
+
+    closeLogin.onclick = () => {
+        loginModal.style.display = "none";
+    };
+
+    const USER = "vendedor";
+    const PASS = "12345";
+
+    document.getElementById("loginSend").onclick = () => {
+        const u = document.getElementById("loginUser").value;
+        const p = document.getElementById("loginPass").value;
+
+        if (u === USER && p === PASS) {
+            window.location.href = "admin.html";
+        } else {
+            alert("Credenciales incorrectas.");
+        }
+    };
+
+});
+</script>
+
 </body>
 </html>
+
 
 
 
