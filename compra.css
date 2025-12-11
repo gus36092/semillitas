@@ -108,7 +108,8 @@ p {
 .modal-content input {
     width: 90%;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 14px;
+    margin-bottom: 6px; 
     border-radius: 8px;
     border: 2px solid #0a3d2a;
     text-align: center;
@@ -129,3 +130,4 @@ p {
     cursor: pointer;
     font-size: 20px;
 }
+
