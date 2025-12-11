@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Pedidos</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #e3efe9;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0a3d2a;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #0a3d2a;
+            color: white;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .done {
+            background: #217a00;
+        }
+
+        .delete {
+            background: #8b0000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📦 Pedidos Recibidos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Área</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="ordersTable"></tbody>
+    </table>
+
+    <!-- FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getDatabase, ref, onValue, remove, update }
+            from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA6omI2lb-R5VLxTqWu56ct65vrhGyrk80",
+            authDomain: "semillitas-project.firebaseapp.com",
+            projectId: "semillitas-project",
+            storageBucket: "semillitas-project.appspot.com",
+            messagingSenderId: "632655626806",
+            appId: "1:632655626806:web:26fe89b0ea334832830e97",
+            measurementId: "G-LFG4GEHCE1",
+            databaseURL: "https://semillitas-project-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const ordersRef = ref(db, "pedidos");
+
+        // 🚀 Cargar pedidos en tiempo real
+        onValue(ordersRef, snapshot => {
+            const table = document.getElementById("ordersTable");
+            table.innerHTML = "";
+
+            snapshot.forEach(child => {
+                const key = child.key;
+                const data = child.val();
+
+                const row = `
+                    <tr>
+                        <td>${data.nombre}</td>
+                        <td>${data.area}</td>
+                        <td>${data.producto}</td>
+                        <td>${data.cantidad}</td>
+                        <td>${new Date(data.fecha).toLocaleString()}</td>
+                        <td>
+                            <button class="btn done" onclick="markDone('${key}')">Entregado</button>
+                            <button class="btn delete" onclick="deleteOrder('${key}')">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+
+                table.innerHTML += row;
+            });
+        });
+
+        // ✔ Marcar como entregado
+        window.markDone = async (id) => {
+            await update(ref(db, "pedidos/" + id), { estado: "entregado" });
+            alert("Pedido marcado como entregado.");
+        };
+
+        // ❌ Eliminar pedido
+        window.deleteOrder = async (id) => {
+            if (confirm("¿Eliminar este pedido?")) {
+                await remove(ref(db, "pedidos/" + id));
+            }
+        };
+    </script>
+
+</body>
+</html>
