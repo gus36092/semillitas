@@ -1,34 +1,17 @@
-function openForm() {
-    document.getElementById("formModal").style.display = "flex";
-}
+// Obtener datos desde la URL (item, img, precio, etc)
+const params = new URLSearchParams(window.location.search);
 
+document.getElementById("buyName").textContent = params.get("name");
+document.getElementById("buyPrice").textContent = params.get("price");
+document.getElementById("buyImg").src = params.get("img");
+document.getElementById("buyDesc").textContent = params.get("desc");
+
+// Abrir modal
+document.getElementById("confirmBtn").onclick = () => {
+    document.getElementById("formModal").style.display = "flex";
+};
+
+// Cerrar modal
 document.getElementById("closeForm").onclick = () => {
     document.getElementById("formModal").style.display = "none";
 };
-
-document.getElementById("sendOrder").onclick = () => {
-
-    const name = document.getElementById("userName").value;
-    const area = document.getElementById("userArea").value;
-    const qty = document.getElementById("qty").value;
-    const product = document.getElementById("buyName").textContent;
-
-    if (!name || !area) {
-        alert("Completa todos los campos.");
-        return;
-    }
-
-    const message = 
-`Hola, quiero realizar un pedido:
-
-Nombre: ${name}
-Área: ${area}
-Producto: ${product}
-Cantidad: ${qty}`;
-
-    const phone = "50376818814";  // ← tu número aquí
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-    window.open(url, "_blank");
-};
-
