@@ -6,6 +6,23 @@
     <title>Panel de Pedidos</title>
 
     <style>
+        .logout-btn {
+        background: #b00020;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        margin-bottom: 15px;
+        }
+        
+        .logout-btn:hover {
+            background: #7a0016;
+        }
+
+
+        
         body {
             font-family: Arial;
             background: #e3efe9;
@@ -56,6 +73,8 @@
 </head>
 
 <body>
+
+    <button id="logoutBtn" class="logout-btn">Cerrar sesión</button>
 
     <h1>📦 Pedidos Recibidos</h1>
 
@@ -133,6 +152,12 @@
             if (confirm("¿Eliminar este pedido?")) {
                 await remove(ref(db, "pedidos/" + id));
             }
+        };
+    </script>
+    
+    <script>
+    document.getElementById("logoutBtn").onclick = () => {
+        window.location.href = "index.html";
         };
     </script>
 
