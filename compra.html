@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar Semilla</title>
+    <link rel="stylesheet" href="compra.css">
+</head>
+
+<body>
+
+    <!-- Modal -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span id="closeForm" class="close">&times;</span>
+
+            <h2>Finalizar Compra</h2>
+
+            <label>Nombre:</label>
+            <input id="userName" type="text" class="input-modal">
+
+            <label>Área:</label>
+            <input id="userArea" type="text" class="input-modal">
+
+            <button id="sendOrder" class="btn-buy-final">Enviar pedido</button>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="buy-container">
+        <img id="buyImg" class="buy-img" src="img/almonds.png" alt="Semilla">
+        <h1 id="buyName">Almendras</h1>
+
+        <div class="price" id="buyPrice">$0.25 / unidad</div>
+
+        <p id="buyDesc">
+            Las almendras son semillas altamente nutritivas, ricas en vitamina E y grasas saludables.
+        </p>
+
+        <div class="quantity">
+            <label for="qty">Cantidad:</label><br>
+            <input type="number" id="qty" value="1" min="1" step="1">
+        </div>
+
+        <button class="btn-buy-final" onclick="openForm()">Confirmar compra</button>
+
+        <span class="back-link" onclick="window.location.href='index.html'">
+            ← Volver al catálogo
+        </span>
+    </div>
+
+    <script src="compra.js"></script>
+</body>
+</html>

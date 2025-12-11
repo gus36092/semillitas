@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrición de Semillas SV</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">🌱 Semillitas Crespin</div>
+  </header>
+
+  <div class="container">
+    <h1>Información Nutricional</h1>
+
+    <!-- PRIMERA FILA -->
+    <div class="products">
+
+      <div class="product-card" data-item="almonds">
+        <img src="img/almendras.png" alt="Almendras">
+        <h3>Almendras</h3>
+      </div>
+
+      <div class="product-card" data-item="peanuts">
+        <img src="img/mani.png" alt="Maní">
+        <h3>Maní</h3>
+      </div>
+
+      <div class="product-card" data-item="cashews">
+        <img src="img/maranon.png" alt="Marañón">
+        <h3>Marañón</h3>
+      </div>
+
+      <div class="product-card" data-item="pistachios">
+        <img src="img/pistacho.png" alt="Pistachos">
+        <h3>Pistachos</h3>
+      </div>
+
+      <div class="product-card" data-item="pepitoria">
+        <img src="img/pepitoria.png" alt="Pepitoria">
+        <h3>Pepitoria</h3>
+      </div>
+
+    </div>
+
+    <!-- SEGUNDA FILA -->
+    <div class="products extra-products">
+
+      <div class="product-card" data-item="chia">
+        <img src="img/chia.png" alt="Chía">
+        <h3>Chía</h3>
+      </div>
+
+      <div class="product-card" data-item="sesamo">
+        <img src="img/sesamo.png" alt="Sésamo">
+        <h3>Sésamo</h3>
+      </div>
+
+      <div class="product-card" data-item="girasol">
+        <img src="img/girasol.png" alt="Girasol">
+        <h3>Girasol</h3>
+      </div>
+
+      <div class="product-card" data-item="avellanas">
+        <img src="img/avellanas.png" alt="Avellanas">
+        <h3>Avellanas</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <img id="modalImg" src="" alt="Seed Image" class="modal-img">
+
+        <h2 id="modalTitle"></h2>
+
+        <div id="modalNutrition"></div>
+
+        <h3>Beneficios</h3>
+        <p id="modalBenefits"></p>
+
+        <button id="buyButton" class="buy-btn">Comprar</button>
+
+    </div>
+</div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2025 Semillitas Crespin — Nutrición Natural Premium
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
