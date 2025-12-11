@@ -29,7 +29,7 @@ p {
     color: #333;
 }
 
-input {
+#qty {
     padding: 8px;
     border-radius: 8px;
     border: 2px solid #0a3d2a;
@@ -79,10 +79,12 @@ input {
     font-size: 20px;
 }
 
-input {
+#userName, #userArea {
     width: 90%;
     padding: 10px;
     margin-top: 10px;
+    border-radius: 8px;
+    border: 2px solid #0a3d2a;
 }
 
 #sendOrder {
