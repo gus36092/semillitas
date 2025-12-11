@@ -141,12 +141,6 @@
             });
         });
 
-        // ✔ Marcar como entregado
-        window.markDone = async (id) => {
-            await update(ref(db, "pedidos/" + id), { estado: "entregado" });
-            alert("Pedido marcado como entregado.");
-        };
-
         // ❌ Eliminar pedido
         window.deleteOrder = async (id) => {
             if (confirm("¿Eliminar este pedido?")) {
