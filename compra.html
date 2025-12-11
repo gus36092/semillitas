@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprar Semilla</title>
 
-    <link rel="stylesheet" href="compra.css" />
+    <link rel="stylesheet" href="compra.css">
 </head>
 
 <body>
 
+    <!-- TARJETA CENTRAL -->
     <div class="card">
-        <img id="buyImg" src="" alt="Imagen" class="product-img">
+        <img id="buyImg" class="product-img" src="" alt="Imagen">
 
         <h1 id="buyName"></h1>
         <h2 id="buyPrice"></h2>
@@ -28,10 +29,11 @@
         <a href="index.html" class="back">← Volver al catálogo</a>
     </div>
 
+
     <!-- MODAL -->
     <div id="formModal" class="modal">
         <div class="modal-content">
-            <span id="closeForm" class="close">&times;</span>
+            <span class="close" id="closeForm">&times;</span>
 
             <h2>Finalizar Compra</h2>
 
@@ -45,9 +47,10 @@
         </div>
     </div>
 
+
     <script src="compra.js"></script>
 
-    <!-- Firebase -->
+    <!-- FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
@@ -66,7 +69,7 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        getAnalytics(app);
         const db = getDatabase(app);
 
         document.getElementById("sendOrder").onclick = async () => {
