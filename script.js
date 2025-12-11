@@ -1,29 +1,5 @@
 const API_KEY = 'uAGhuvTu6O1lsLYwu53L37EKi7CmiiYFZEhoZA1X';
 
-<script>
-    const loginBtn = document.getElementById("loginBtn");
-    const loginModal = document.getElementById("loginModal");
-    const closeLogin = document.getElementById("closeLogin");
-
-    loginBtn.onclick = () => loginModal.style.display = "flex";
-    closeLogin.onclick = () => loginModal.style.display = "none";
-
-    // CREDENCIALES FIJAS
-    const USER = "vendedor";
-    const PASS = "12345";
-
-    document.getElementById("loginSend").onclick = () => {
-        const u = document.getElementById("loginUser").value;
-        const p = document.getElementById("loginPass").value;
-
-        if (u === USER && p === PASS) {
-            window.location.href = "admin.html";
-        } else {
-            alert("Credenciales incorrectas.");
-        }
-    };
-</script>
-
 // Mejores nombres de búsqueda
 const seedApiNames = {
   almonds: 'Almonds, raw',
@@ -168,4 +144,5 @@ window.onclick = e => {
 document.getElementById("buyButton").onclick = () => {
     window.location.href = "compra.html";
 };
+
 
