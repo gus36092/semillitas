@@ -3,101 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprar Semilla</title>
-
+    <title>Carrito de Compra</title>
     <link rel="stylesheet" href="compra.css">
 </head>
 
 <body>
 
-    <!-- TARJETA CENTRAL -->
-    <div class="card">
-        <img id="buyImg" class="product-img" src="" alt="Imagen">
+<div class="cart-container">
 
-        <h1 id="buyName"></h1>
-        <h2 id="buyPrice"></h2>
+    <h1>🛒 Carrito de compra</h1>
 
-        <p id="buyDesc"></p>
+    <div id="cartItems" class="cart-items"></div>
 
-        <div class="qty-box">
-            <label for="qty">Cantidad:</label>
-            <input type="number" id="qty" value="1" min="1">
-        </div>
+    <h2 id="totalGeneral" class="total-general">Total: $0.00</h2>
 
-        <button id="confirmBtn" class="btn">Confirmar compra</button>
+    <div class="buyer-box">
+        <h3>Datos del comprador</h3>
 
-        <a href="index.html" class="back">← Volver al catálogo</a>
+        <label>Nombre:</label>
+        <input type="text" id="userName">
+
+        <label>Área:</label>
+        <input type="text" id="userArea">
     </div>
 
+    <button id="sendOrder" class="btn-final">Enviar pedido</button>
 
-    <!-- MODAL -->
-    <div id="formModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeForm">&times;</span>
+    <a href="index.html" class="back-link">← Volver al catálogo</a>
+</div>
 
-            <h2>Finalizar Compra</h2>
+<!-- JS -->
+<script src="compra.js"></script>
 
-            <label>Nombre:</label>
-            <input type="text" id="userName">
+<!-- FIREBASE -->
+<script type="module">
+    import { initializeApp } 
+      from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getDatabase, ref, push } 
+      from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
-            <label>Área:</label>
-            <input type="text" id="userArea">
+    const firebaseConfig = {
+        apiKey: "AIzaSyA6omI2lb-R5VLxTqWu56ct65vrhGyrk80",
+        authDomain: "semillitas-project.firebaseapp.com",
+        projectId: "semillitas-project",
+        storageBucket: "semillitas-project.appspot.com",
+        messagingSenderId: "632655626806",
+        appId: "1:632655626806:web:26fe89b0ea334832830e97",
+        databaseURL: "https://semillitas-project-default-rtdb.firebaseio.com/"
+    };
 
-            <button id="sendOrder">Enviar pedido</button>
-        </div>
-    </div>
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
+    // Guardar pedido
+    document.getElementById("sendOrder").onclick = async () => {
 
-    <script src="compra.js"></script>
+        const name = document.getElementById("userName").value;
+        const area = document.getElementById("userArea").value;
 
-    <!-- FIREBASE -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-        import { getDatabase, ref, push }
-            from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+        if (!name || !area) {
+            alert("Completa tu nombre y área.");
+            return;
+        }
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyA6omI2lb-R5VLxTqWu56ct65vrhGyrk80",
-            authDomain: "semillitas-project.firebaseapp.com",
-            projectId: "semillitas-project",
-            storageBucket: "semillitas-project.appspot.com",
-            messagingSenderId: "632655626806",
-            appId: "1:632655626806:web:26fe89b0ea334832830e97",
-            measurementId: "G-LFG4GEHCE1",
-            databaseURL: "https://semillitas-project-default-rtdb.firebaseio.com/"
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (cart.length === 0) {
+            alert("Tu carrito está vacío.");
+            return;
+        }
+
+        const order = {
+            nombre: name,
+            area: area,
+            productos: cart,
+            fecha: new Date().toISOString()
         };
 
-        const app = initializeApp(firebaseConfig);
-        getAnalytics(app);
-        const db = getDatabase(app);
+        const pedidosRef = ref(db, "pedidos");
+        await push(pedidosRef, order);
 
-        document.getElementById("sendOrder").onclick = async () => {
-            const name = document.getElementById("userName").value;
-            const area = document.getElementById("userArea").value;
-            const qty = document.getElementById("qty").value;
-            const product = document.getElementById("buyName").textContent;
+        alert("Pedido enviado correctamente.");
 
-            if (!name || !area) {
-                alert("Completa todos los campos.");
-                return;
-            }
-
-            const order = {
-                nombre: name,
-                area: area,
-                producto: product,
-                cantidad: qty,
-                fecha: new Date().toISOString()
-            };
-
-            await push(ref(db, "pedidos"), order);
-
-            alert("Pedido enviado correctamente.");
-            window.location.href = "index.html";
-        };
-    </script>
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+    };
+</script>
 
 </body>
 </html>
-
