@@ -7,22 +7,20 @@
 
     <style>
         .logout-btn {
-        background: #b00020;
-        color: white;
-        border: none;
-        padding: 10px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 15px;
-        margin-bottom: 15px;
+            background: #b00020;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-bottom: 15px;
         }
-        
+
         .logout-btn:hover {
             background: #7a0016;
         }
 
-
-        
         body {
             font-family: Arial;
             background: #e3efe9;
@@ -54,20 +52,17 @@
             color: white;
         }
 
-        .btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            color: white;
-        }
-
-        .done {
-            background: #217a00;
-        }
-
         .delete {
             background: #8b0000;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete:hover {
+            background: #600000;
         }
     </style>
 </head>
@@ -95,7 +90,7 @@
     <!-- FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getDatabase, ref, onValue, remove, update }
+        import { getDatabase, ref, onValue, remove }
             from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -105,52 +100,63 @@
             storageBucket: "semillitas-project.appspot.com",
             messagingSenderId: "632655626806",
             appId: "1:632655626806:web:26fe89b0ea334832830e97",
-            measurementId: "G-LFG4GEHCE1",
             databaseURL: "https://semillitas-project-default-rtdb.firebaseio.com/"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        const ordersRef = ref(db, "pedidos");
+        const pedidosRef = ref(db, "pedidos");
 
-        // 🚀 Cargar pedidos en tiempo real
-        onValue(ordersRef, snapshot => {
-            const table = document.getElementById("ordersTable");
-            table.innerHTML = "";
+        // Cargar pedidos en vivo
+        onValue(pedidosRef, (snapshot) => {
+            const tbody = document.getElementById("ordersTable");
+            tbody.innerHTML = "";
 
             snapshot.forEach(child => {
+                const pedido = child.val();
                 const key = child.key;
-                const data = child.val();
 
-                const row = `
-                    <tr>
-                        <td>${data.nombre}</td>
-                        <td>${data.area}</td>
-                        <td>${data.producto}</td>
-                        <td>${data.cantidad}</td>
-                        <td>${new Date(data.fecha).toLocaleString()}</td>
-                        <td>
-                            <button class="btn delete" onclick="deleteOrder('${key}')">Eliminar</button>
-                        </td>
-                    </tr>
+                const nombre = pedido.nombre;
+                const area = pedido.area;
+                const fecha = new Date(pedido.fecha).toLocaleString();
+
+                let productosTexto = "-", cantidadesTexto = "-";
+
+                if (Array.isArray(pedido.productos)) {
+                    productosTexto = pedido.productos.map(p => p.name).join("<br>");
+                    cantidadesTexto = pedido.productos.map(p => p.qty).join("<br>");
+                }
+
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td>${nombre}</td>
+                    <td>${area}</td>
+                    <td>${productosTexto}</td>
+                    <td>${cantidadesTexto}</td>
+                    <td>${fecha}</td>
+                    <td>
+                        <button class="delete" onclick="deleteOrder('${key}')">Eliminar</button>
+                    </td>
                 `;
 
-                table.innerHTML += row;
+                tbody.appendChild(tr);
             });
         });
 
-        // ❌ Eliminar pedido
+        // Eliminar pedido
         window.deleteOrder = async (id) => {
             if (confirm("¿Eliminar este pedido?")) {
                 await remove(ref(db, "pedidos/" + id));
             }
         };
     </script>
-    
+
+    <!-- Logout -->
     <script>
-    document.getElementById("logoutBtn").onclick = () => {
-        window.location.href = "index.html";
+        document.getElementById("logoutBtn").onclick = () => {
+            window.location.href = "index.html";
         };
     </script>
 
