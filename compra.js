@@ -1,27 +1,61 @@
-// compra.js
-(function() {
+// Cargar carrito desde LocalStorage
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const params = new URLSearchParams(window.location.search);
+const cartBox = document.getElementById("cartItems");
+const totalGeneral = document.getElementById("totalGeneral");
 
-  const name = params.get('name') || 'Almendras';
-  const price = params.get('price') || '$0.25 / unidad';
-  const img = params.get('img') || 'img/almendras.png';
-  const desc = params.get('desc') || 'Semilla nutritiva y saludable.';
+function renderCart() {
 
-  // Asignar valores
-  document.getElementById('buyName').textContent = name;
-  document.getElementById('buyPrice').textContent = price;
-  document.getElementById('buyImg').src = img;
-  document.getElementById('buyDesc').textContent = desc;
+    cartBox.innerHTML = "";
 
-  // Abrir modal
-  document.getElementById('confirmBtn').onclick = () => {
-      document.getElementById('formModal').style.display = 'flex';
-  };
+    let total = 0;
 
-  // Cerrar modal
-  document.getElementById('closeForm').onclick = () => {
-      document.getElementById('formModal').style.display = 'none';
-  };
+    cart.forEach((item, index) => {
 
-})();
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+
+        div.innerHTML = `
+            <div class="item-info">
+                <strong>${item.name}</strong><br>
+                $${item.price.toFixed(2)} c/u<br>
+                Subtotal: $${subtotal.toFixed(2)}
+            </div>
+
+            <div class="qty-controls">
+                <button onclick="decrease(${index})">-</button>
+                <span>${item.qty}</span>
+                <button onclick="increase(${index})">+</button>
+            </div>
+        `;
+        
+        cartBox.appendChild(div);
+    });
+
+    totalGeneral.textContent = `Total: $${total.toFixed(2)}`;
+}
+
+// Aumentar
+window.increase = (i) => {
+    cart[i].qty++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+};
+
+// Disminuir
+window.decrease = (i) => {
+    if (cart[i].qty > 1) {
+        cart[i].qty--;
+    } else {
+        cart.splice(i, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+};
+
+
+// Inicializar vista
+renderCart();
