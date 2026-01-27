@@ -4,67 +4,67 @@ const cartCount = document.getElementById("cartCount");
 const cartTotal = document.getElementById("cartTotal");
 const cartBox = document.getElementById("cartBox");
 
+// Inicializar
 updateCartDisplay();
+updateButtonsState();
 
-// Agregar al carrito
+// -------------------------------
+// AGREGAR PRODUCTOS AL CARRITO
+// -------------------------------
 document.querySelectorAll(".product-card").forEach(card => {
-const btn = card.querySelector(".addBtn");
+    const btn = card.querySelector(".addBtn");
 
+    btn.addEventListener("click", () => {
+        const name = card.dataset.name;
+        const price = parseFloat(card.dataset.price);
+        const img = card.dataset.img;
+        const qty = parseInt(card.querySelector(".qtyInput").value);
 
-btn.addEventListener("click", () => {
-    const name = card.dataset.name;
-    const price = parseFloat(card.dataset.price);
-    const img = card.dataset.img;
-    const qty = parseInt(card.querySelector(".qtyInput").value);
-
-    addToCart({ name, price, img, qty });
-});
-
-
+        addToCart({ name, price, img, qty });
+        updateButtonsState();
+    });
 });
 
 function addToCart(product) {
-const existing = cart.find(p => p.name === product.name);
+    const existing = cart.find(p => p.name === product.name);
 
+    if (existing) {
+        existing.qty += product.qty;
+    } else {
+        cart.push(product);
+    }
 
-if (existing) {
-    existing.qty += product.qty;
-} else {
-    cart.push(product);
-}
-
-saveCart();
-updateCartDisplay();
-
-
+    saveCart();
+    updateCartDisplay();
 }
 
 function saveCart() {
-localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function updateCartDisplay() {
-let totalQty = cart.reduce((a, b) => a + b.qty, 0);
-let totalAmount = cart.reduce((a, b) => a + b.qty * b.price, 0);
+    let totalQty = cart.reduce((a, b) => a + b.qty, 0);
+    let totalAmount = cart.reduce((a, b) => a + b.qty * b.price, 0);
 
-
-cartCount.textContent = totalQty;
-cartTotal.textContent = "$" + totalAmount.toFixed(2);
-
-
+    cartCount.textContent = totalQty;
+    cartTotal.textContent = "$" + totalAmount.toFixed(2);
 }
 
+// Ir a compra
 cartBox.onclick = () => {
-window.location.href = "compra.html";
+    window.location.href = "compra.html";
 };
 
+// -------------------------------
+// MARCAR BOTONES YA AGREGADOS
+// -------------------------------
 function updateButtonsState() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Para cada producto del catálogo
     document.querySelectorAll(".product-card").forEach(card => {
-        const name = card.dataset.name;  // ← Debemos agregar este data-name en el HTML
-        const btn = card.querySelector(".add-btn");
+
+        const name = card.dataset.name;
+        const btn = card.querySelector(".addBtn");
 
         const exists = cart.some(item => item.name === name);
 
