@@ -56,42 +56,5 @@ window.decrease = (i) => {
     renderCart();
 };
 
-
 // Inicializar vista
 renderCart();
-
-// Enviar pedido a Firebase
-document.getElementById("sendOrder").onclick = async () => {
-    const name = document.getElementById("userName").value;
-    const area = document.getElementById("userArea").value;
-    const carrito = JSON.parse(localStorage.getItem("cart")) || [];
-
-    if (!name || !area) {
-        alert("Completa todos los campos.");
-        return;
-    }
-
-    if (carrito.length === 0) {
-        alert("El carrito está vacío.");
-        return;
-    }
-
-    const pedido = {
-        nombre: name,
-        area: area,
-        productos: carrito,
-        fecha: new Date().toISOString()
-    };
-
-    const pedidosRef = ref(db, "pedidos");
-    await push(pedidosRef, pedido);
-
-    alert("Pedido enviado correctamente.");
-
-    // limpiar carrito
-    localStorage.removeItem("cart");
-
-    // volver al inicio
-    window.location.href = "index.html";
-};
-
