@@ -32,7 +32,7 @@
     <a href="index.html" class="back-link">← Volver al catálogo</a>
 </div>
 
-<!-- JS -->
+<!-- JS carrito -->
 <script src="compra.js"></script>
 
 <!-- FIREBASE -->
@@ -55,7 +55,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Guardar pedido
+    // Enviar pedido a Firebase
     document.getElementById("sendOrder").onclick = async () => {
 
         const name = document.getElementById("userName").value;
