@@ -57,3 +57,25 @@ cartTotal.textContent = "$" + totalAmount.toFixed(2);
 cartBox.onclick = () => {
 window.location.href = "compra.html";
 };
+
+function updateButtonsState() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Para cada producto del catálogo
+    document.querySelectorAll(".product-card").forEach(card => {
+        const name = card.dataset.name;  // ← Debemos agregar este data-name en el HTML
+        const btn = card.querySelector(".add-btn");
+
+        const exists = cart.some(item => item.name === name);
+
+        if (exists) {
+            btn.textContent = "Añadido ✓";
+            btn.style.background = "#1b8f3a";
+            btn.style.color = "white";
+        } else {
+            btn.textContent = "Agregar al carrito";
+            btn.style.background = "#0a0f88";
+            btn.style.color = "white";
+        }
+    });
+}
