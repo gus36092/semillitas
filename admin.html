@@ -80,6 +80,7 @@
                 <th>Área</th>
                 <th>Producto</th>
                 <th>Cantidad</th>
+                <th>Total $</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
@@ -128,6 +129,14 @@
                     cantidadesTexto = pedido.productos.map(p => p.qty).join("<br>");
                 }
 
+                // Calcular total del pedido
+                let totalPago = 0;
+                if (Array.isArray(pedido.productos)) {
+                    totalPago = pedido.productos
+                        .reduce((sum, p) => sum + p.qty * p.price, 0)
+                        .toFixed(2);
+                }
+
                 const tr = document.createElement("tr");
 
                 tr.innerHTML = `
@@ -135,7 +144,9 @@
                     <td>${area}</td>
                     <td>${productosTexto}</td>
                     <td>${cantidadesTexto}</td>
+                    <td>$${totalPago}</td>
                     <td>${fecha}</td>
+                    <td>${precio}</td>
                     <td>
                         <button class="delete" onclick="deleteOrder('${key}')">Eliminar</button>
                     </td>
